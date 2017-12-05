@@ -1,0 +1,42 @@
+---
+### verifica se il sistema necessita di un reboot ed altre info
+
+
+- hosts: all
+  remote_user: root
+  tasks: 
+  - name: Check if reboot is needed 
+    stat: path=/var/run/reboot-required 
+    register: need_reboot 
+
+  - name: Motd
+    command:  grep -A1 "=====" /etc/motd
+    register: motd
+
+
+  - name: dpkg -l 
+    command: dpkg -l
+    register: dpkg-l
+
+  - name: Generate packages list
+    template: 
+      src=../templates/dpkg-l.j2 
+      dest=/tmp/hosts_listpackages.txt 
+    delegate_to: localhost 
+    run_once: true 
+
+
+  - name: Generate host information
+    template: 
+      src=../templates/checkso.j2 
+      dest=/tmp/hosts_informations.txt 
+    delegate_to: localhost 
+    run_once: true 
+
+
+
+
+#  - name: Copy motd
+#    fetch:
+#      src=/etc/motd
+#      dest=/tmp/fetched

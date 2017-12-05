@@ -1,0 +1,16 @@
+Check 1 need reboot 
+{% for i in play_hosts | sort %} 
+{{ i }}: {{ hostvars[i]['need_reboot']['stat']['exists']  }} 
+{% endfor %} 
+
+Host informations
+{% for i in play_hosts | sort %}
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+hostname: {{ hostvars[i]['ansible_hostname'] }} {{ i }}
+ip [{{ hostvars[i]['ansible_default_ipv4']['interface'] }}] : {{ hostvars[i]['ansible_default_ipv4']['macaddress'] }} {{ hostvars[i]['ansible_default_ipv4']['address'] }}/{{ hostvars[i]['ansible_default_ipv4']['netmask'] }}  gw {{ hostvars[i]['ansible_default_ipv4']['gateway'] }}
+mot.d:
+--------------
+{{ hostvars[i]['motd']['stdout'] }}
+--------------
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+{% endfor %}

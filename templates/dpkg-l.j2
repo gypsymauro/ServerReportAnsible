@@ -1,0 +1,5 @@
+{% for i in play_hosts | sort %} 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< hostname: {{ hostvars[i]['ansible_hostname'] }} [{{ i }}]  installed software [ dpkg -l ] >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+{{ hostvars[i]['dpkg-l']['stdout'] }}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>          end of list {{ hostvars[i]['ansible_hostname'] }}       <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+{% endfor %}
