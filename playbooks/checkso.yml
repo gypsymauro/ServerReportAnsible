@@ -14,9 +14,9 @@
     register: motd
 
 
-  - name: dpkg -l 
+  - name: dpkg
     command: dpkg -l
-    register: dpkg-l
+    register: dpkg
 
   - name: Generate packages list
     template: 
